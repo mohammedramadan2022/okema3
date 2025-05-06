@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->integer('quantity_before');
             $table->integer('quantity_after');
-            $table->enum('type' , array('supply' , 'store_exchange' ,'order'));
+            $table->enum('type' , ['supply' , 'store_exchange' ,'order']);
             $table->integer('store_from_id')->nullable();
             $table->integer('store_to_id')->nullable();
 

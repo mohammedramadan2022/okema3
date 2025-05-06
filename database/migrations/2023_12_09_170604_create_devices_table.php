@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->increments('id');
             $table->string('name');
             $table->integer('warranty')->default(24);
-            $table->enum('status' , array('active' , 'inactive'))->default('active');
+            $table->enum('status' , ['active' , 'inactive'])->default('active');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('category_id');
             $table->integer('device_id');
             $table->string('barcode');
-            $table->enum('status' , array('active' , 'inactive'));
+            $table->enum('status' , ['active' , 'inactive']);
             $table->timestamps();
             $table->softDeletes();
         });

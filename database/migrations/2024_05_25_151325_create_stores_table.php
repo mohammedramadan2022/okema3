@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('stores', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
-            $table->enum('type',array('main' , 'user'));
-            $table->enum('status',array('active' , 'inactive'));
+            $table->enum('type',['main' , 'user']);
+            $table->enum('status',['active' , 'inactive']);
             $table->timestamps();
         });
     }

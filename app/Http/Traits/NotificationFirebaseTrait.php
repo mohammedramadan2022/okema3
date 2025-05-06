@@ -56,17 +56,17 @@ trait NotificationFirebaseTrait
         if ($android_tokens != null) {
 
             //prep the android payload
-            $fields = array
-            (
+            $fields = 
+            [
                 'registration_ids' => $android_tokens,
                 'data' => $notifications['data'],
                 'notification'=>$notifications['notification'],
-            );
+            ];
 
             //Generating JSON encoded string form the above array.
             $json = json_encode($fields);
             //Setup headers:
-            $headers = array();
+            $headers = [];
             $headers[] = 'Content-Type: application/json';
             $headers[] = 'Authorization: key= ' . $API_ACCESS_KEY; // key here
             //Setup curl, add headers and post parameters.
@@ -92,18 +92,18 @@ trait NotificationFirebaseTrait
         //handle ios tokens
         if ($ios_tokens != null) {
             $notifications['sound'] = 'default';
-            $fields = array
-            (
+            $fields = 
+            [
                 'registration_ids' => $ios_tokens,
                 'data' => $notifications['data'],
                 'notification'=>$notifications['notification'],
-            );
+            ];
 
-            $headers = array
-            (
+            $headers = 
+            [
                 'Authorization: key=' . $API_ACCESS_KEY,
                 'Content-Type: application/json'
-            );
+            ];
             $ch = curl_init();
             $json = json_encode($fields);
             curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
