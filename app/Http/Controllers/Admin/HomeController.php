@@ -117,12 +117,12 @@ class HomeController extends Controller
             $i = 0;
             foreach ($arrResult as $item => $value) {
                 $title = $value['counter'];
-                $Events[$i] = array(
+                $Events[$i] = [
                     'id' => $i,
                     'title' => $title,
                     'start' => $item,
                     'ids' => $value['id'],
-                );
+                ];
                 $i++;
             }
         }

@@ -45,7 +45,7 @@ trait Upload_Files
         return $image_file;
     }
     public function storeDefaultImage($path,$name){
-        $colors = array(
+        $colors = [
             "#162F44",
             "#2F97D0",
             "#670948",
@@ -67,7 +67,7 @@ trait Upload_Files
             "#AC3F88",
             "#B8170A",
             "#CBA47D",
-        );
+        ];
         $key1 = array_rand($colors);
         $key2 = array_rand($colors);
 
@@ -76,7 +76,7 @@ trait Upload_Files
             $key2 = array_rand($colors);
         }
 
-        $fonts = array(
+        $fonts = [
             public_path('assets/default/fonts/Sukar-Black.ttf'),
             public_path('assets/default/fonts/Sukar-Bold.ttf'),
             public_path('assets/default/fonts/GRIFON-BlackPersonalUse.otf'),
@@ -84,7 +84,7 @@ trait Upload_Files
             public_path('assets/default/fonts/Sukar-Regular.ttf'),
             public_path('assets/default/fonts/Kahlil.otf'),
             public_path('assets/default/fonts/Kahlil.ttf')
-        );
+        ];
 
         $fontKey = array_rand($fonts);
 

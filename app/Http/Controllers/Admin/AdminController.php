@@ -142,7 +142,7 @@ class AdminController extends Controller
     {
 
         $admin_roles_ides = DB::table("model_has_roles")->where("model_has_roles.model_id", $admin->id)
-            ->where('model_type','App\Models\Admin')  ->pluck('role_id');
+            ->where('model_type',\App\Models\Admin::class)  ->pluck('role_id');
 
 
         $roles = Role::where('guard_name','admin')->get();
