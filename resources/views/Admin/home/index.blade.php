@@ -1,6 +1,6 @@
 @extends('Admin.layouts.inc.app')
 @section('title')
-احصائيات عامة
+{{setting()->app_name}}
 @endsection
 @section('css')
 

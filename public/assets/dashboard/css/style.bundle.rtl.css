@@ -47189,10 +47189,10 @@ body {
   color: #1B1B1B !important;
 }
 .aside-dark .menu .menu-item .menu-link {
-  color: #9899ac;
+  color: #ffffff;
 }
 .aside-dark .menu .menu-item .menu-link .menu-title {
-  color: #fff;
+    color: #ffffff !important;
 }
 .aside-dark .menu .menu-item .menu-link .menu-icon i {
   color: #494b74;

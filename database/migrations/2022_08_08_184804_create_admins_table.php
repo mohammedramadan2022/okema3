@@ -27,7 +27,7 @@ class CreateAdminsTable extends Migration
         });
 
         $sql=[
-            ['id'=>1,'name'=>'Mohamed EL sdodey','email'=>'admin@admin.com','password'=>bcrypt(123456),'phone'=>'01010871488','created_at'=>'2022-03-27 13:57:36','updated_at'=>'2022-03-27 13:57:36']
+            ['id'=>1,'name'=>'Mohamed Ramadan','email'=>'admin@admin.com','password'=>bcrypt(123456),'phone'=>'01021232270']
         ];
         \Illuminate\Support\Facades\DB::table('admins')->insert($sql);
 

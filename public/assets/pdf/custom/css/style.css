@@ -1,0 +1,99 @@
+@page {
+    size: A4;
+    margin: 20mm;
+}
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+.text-light-blue {
+    color: #B4C6E7;
+}
+
+.bg-light-blue-color {
+    background-color: #B4C6E7;
+}
+
+.fs-custom{
+    font-size: 13px;
+}
+
+.watermark {
+    width: 80%;
+    height: 57%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+.footer {
+    position: relative;
+    top: 90%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 0px 8px;
+    text-align: left;
+}
+
+tbody td{
+    margin: 0 20px !important;
+}
+
+p{
+    margin: 0;
+    font-size: 14px;
+    text-align: center;
+}
+
+ol, .last-part{
+    margin-bottom: 0;
+    font-size: 13px;
+}
+
+.header img{
+    height: 70px;
+    width: 100%;
+}
+
+.footer img{
+    height: 40px;
+    width: 100%;
+}
+
+.watermark img{
+    opacity:0.1;
+    height: 21cm;
+    width: 100% !important;
+}
+
+.signature-img{
+    width: 170px;
+    position: absolute;
+    right: 90px;
+    bottom: 0px;
+}
+
+table {
+  page-break-inside: auto;
+}
+tr {
+  page-break-inside: avoid;
+  page-break-after: auto;
+}

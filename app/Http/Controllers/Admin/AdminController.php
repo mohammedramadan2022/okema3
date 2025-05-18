@@ -21,64 +21,57 @@ class AdminController extends Controller
     public function index(Request $request)
     {
 
-
         if ($request->ajax()) {
             $admins = Admin::query()->latest();
             return Datatables::of($admins)
                 ->addColumn('action', function ($admin) {
 
-                    $edit = '';
+
                     $delete = '';
 
-
                     return '
-                            <button ' . $edit . '  class="editBtn btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                    data-id="' . $admin->id . '"
-                          	<span class="svg-icon svg-icon-3">
-								<svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#2f5bdd"><path d="M144-144v-153l498-498q11-11 24-16t27-5q14 0 27 5t24 16l51 51q11 11 16 24t5 27q0 14-5 27t-16 24L297-144H144Zm549-498 51-51-51-51-51 51 51 51Z"/></svg>
-							</span>
-                            </button>
-                            <button ' . $delete . '  class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm delete"
-                                    data-id="' . $admin->id . '">
-                            <span class="svg-icon svg-icon-3">
-							   <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#f44336"><path d="M312-144q-29.7 0-50.85-21.15Q240-186.3 240-216v-480h-48v-72h192v-48h192v48h192v72h-48v479.57Q720-186 698.85-165T648-144H312Zm72-144h72v-336h-72v336Zm120 0h72v-336h-72v336Z"/></svg>
+   <a    href  = "'.route("admins.edit",
+                            $admin->id).'" class = "editBtn btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-id = "'.$admin->id.'">
+   <span class = "svg-icon svg-icon-3">
+   <svg  xmlns = "http://www.w3.org/2000/svg" height              = "20px" viewBox                                                                   = "0 -960 960 960" width = "20px" fill = "#2f5bdd">
+   <path d     = "M144-144v-153l498-498q11-11 24-16t27-5q14 0 27 5t24 16l51 51q11 11 16 24t5 27q0 14-5 27t-16 24L297-144H144Zm549-498 51-51-51-51-51 51 51 51Z"/>
+                </svg>
+            </span>
+        </a>
+										<button '.$delete.'  class = "btn btn-icon btn-bg-light btn-active-color-primary btn-sm delete"
+										        data-id                = "'.$admin->id.'">
+										<span   class                  = "svg-icon svg-icon-3">
+										<svg    xmlns                  = "http://www.w3.org/2000/svg" height = "20px" viewBox = "0 -960 960 960" width = "20px" fill = "#f44336"><path d = "M312-144q-29.7 0-50.85-21.15Q240-186.3 240-216v-480h-48v-72h192v-48h192v48h192v72h-48v479.57Q720-186 698.85-165T648-144H312Zm72-144h72v-336h-72v336Zm120 0h72v-336h-72v336Z"/></svg>
 							</span>
                             </button>
                        ';
 
-
                 })
                 ->editColumn('image', function ($admin) {
                     return '
-                              <a data-fancybox="" href="' . get_file($admin->image) . '">
-                                <img height="60px" src="' . get_file($admin->image) . '">
+                              <a data-fancybox="" href="'.get_file($admin->image).'">
+                                <img height="60px" src="'.get_file($admin->image).'">
                             </a>
                              ';
-                })
-
-                ->addColumn('roles', function ($admin) {
-
-                    return $admin->getRoleNames()->implode('-'); // الحصول على الأدوار وعرضها
                 })
 
 
                 ->editColumn('password', function ($row) {
 
-                    return "<button data-id='$row->id' class='badge badge-danger changePassword'>تغير كلمة المرور</button>";
+                    return "<button data-id='$row->id' class='badge badge-danger changePassword'> ".__('admin.Change Password')."</button>";
                 })
-
                 ->editColumn('is_active', function ($row) {
                     $active = '';
                     $operation = '';
 
                     $operation = '';
 
-
-                    if ($row->is_active == 1)
+                    if ($row->is_active == 1) {
                         $active = 'checked';
+                    }
 
                     return '<div class="form-check form-switch">
-                               <input ' . $operation . '  class="form-check-input activeBtn" data-id="' . $row->id . ' " type="checkbox" role="switch" id="flexSwitchCheckChecked" ' . $active . '  >
+                               <input '.$operation.'  class="form-check-input activeBtn" data-id="'.$row->id.' " type="checkbox" role="switch" id="flexSwitchCheckChecked" '.$active.'  >
                             </div>';
                 })
                 ->editColumn('created_at', function ($admin) {
@@ -87,43 +80,49 @@ class AdminController extends Controller
                 ->escapeColumns([])
                 ->make(true);
 
-
         }
+
         return view('Admin.CRUDS.admin.index');
     }
-
 
     public function create()
     {
 
-        $roles = Role::where('guard_name','admin')->get();
+        $roles = Role::where('guard_name', 'admin')->get();
+        $permissions = Permission::where('guard_name', 'admin')->get();
 
-
-        return view('Admin.CRUDS.admin.parts.create',compact('roles'));
+        return view('Admin.CRUDS.admin.parts.create', compact('roles', 'permissions'));
     }
 
     public function store(AdminRequest $request)
     {
         $data = $request->validationData();
-        if ($request->image)
+        if ($request->image) {
             $data["image"] = $this->uploadFiles('admins', $request->file('image'), null);
+        }
 
         $data['password'] = bcrypt($request->password);
-
         unset($data['roles']);
-
-
+        unset($data['permissions']);
+        unset($data['check_all']);
+        unset($data['permission']);
 
         $admin = Admin::create($data);
 
 
+
+
         $admin->roles()->sync($request->input('roles'));
+        $permissions = collect($request->permission)->map(fn($val) => (int) $val);
 
 
-        return $this->addResponse();
+        $admin->syncPermissions($permissions);
+
+
+
+        return redirect()->route('admins.index')->with('success', 'Saved successfully');
 
     }
-
 
     public function show(Admin $admin)
     {
@@ -137,25 +136,24 @@ class AdminController extends Controller
         //
     }
 
-
     public function edit(Admin $admin)
     {
 
         $admin_roles_ides = DB::table("model_has_roles")->where("model_has_roles.model_id", $admin->id)
-            ->where('model_type','App\Models\Admin')  ->pluck('role_id');
+            ->where('model_type', 'App\Models\Admin')->pluck('role_id');
 
+        $roles = Role::where('guard_name', 'admin')->get();
+        $permissions = Permission::where('guard_name', 'admin')->get();
+        $admin_permissions_ids = $admin->permissions->pluck('id')->toArray();
 
-        $roles = Role::where('guard_name','admin')->get();
-
-
-        return view('Admin.CRUDS.admin.parts.edit', compact('admin','roles','admin_roles_ides'));
+        return view('Admin.CRUDS.admin.parts.edit',
+            compact('permissions', 'admin', 'roles', 'admin_roles_ides', 'admin_permissions_ids'));
 
     }
 
-    public function update(AdminRequest $request, $id )
+    public function update(AdminRequest $request, $id)
     {
-
-        $admin=Admin::findOrFail($id);
+        $admin = Admin::findOrFail($id);
         $data = $request->validationData();
         if ($request->password) {
             $data['password'] = bcrypt($request->password);
@@ -168,28 +166,35 @@ class AdminController extends Controller
         }
 
         unset($data['roles']);
+        unset($data['permissions']);
+        unset($data['check_all']);
+        unset($data['permission']);
 
         $admin->update($data);
 
-        $admin=Admin::findOrFail($id);
-
-
+        $admin = Admin::findOrFail($id);
 
         $admin->roles()->sync($request->input('roles'));
+        $permissions = collect($request->permission)->map(fn($val) => (int) $val);
+
+
+        $admin->syncPermissions($permissions);
 
 
         $html = view('Admin.CRUDS.admin.parts.header')->render();
 
-        return response()->json(
-            [
-                'code' => 200,
-                'message' => 'تمت العملية بنجاح!',
-                'html' => $html,
-                'name' => $admin->name,
-                'logo' => get_file($admin->image),
-            ]);
-    }
+        return redirect()->route('admins.index')->with('success', 'Saved successfully');
 
+
+        /*    return response()->json(
+               [
+                   'code'    => 200,
+                   'message' => 'تمت العملية بنجاح!',
+                   'html'    => $html,
+                   'name'    => $admin->name,
+                   'logo'    => get_file($admin->image),
+               ]); */
+    }
 
     public function destroy($id)
     {
@@ -202,8 +207,7 @@ class AdminController extends Controller
         $row->delete();
 
         return $this->deleteResponse();
-    }//end fun
-
+    } //end fun
 
     public function activate(Request $request)
     {
@@ -218,27 +222,24 @@ class AdminController extends Controller
         }
 
         return $this->successResponse();
-    }//end fun
+    } //end fun
 
     public function editPassword($id)
     {
-       $row= Admin::findOrFail($id);
+        $row = Admin::findOrFail($id);
         return view('Admin.CRUDS.admin.parts.password', compact('row'));
 
     }
 
-
-    public function updatePassword(UpdatePasswordRequest $request,$id )
+    public function updatePassword(UpdatePasswordRequest $request, $id)
     {
-        $admin=Admin::findOrFail($id);
+        $admin = Admin::findOrFail($id);
 
         $admin->update([
-            'password'=>bcrypt($request->password),
+            'password' => bcrypt($request->password),
         ]);
 
         return $this->updateResponse();
     }
 
-
-
-}//end class
+} //end class

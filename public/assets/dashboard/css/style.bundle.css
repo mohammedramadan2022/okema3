@@ -47430,10 +47430,10 @@ body {
   width: 0;
 }
 .aside.aside-dark {
-  background-color: #1e1e2d;
+  background-color: #2F5BDD;
 }
 .aside.aside-dark .aside-logo {
-  background-color: #1a1a27;
+  background-color: #2F5BDD;
 }
 .aside.aside-dark .aside-toggle svg [fill]:not(.permanent):not(g) {
   transition: fill 0.3s ease;
@@ -47623,7 +47623,7 @@ body {
   color: #9899ac;
 }
 .aside-dark .menu .menu-item .menu-link .menu-title {
-  color: #9899ac;
+  color: #ffffff;
 }
 .aside-dark .menu .menu-item .menu-link .menu-icon i {
   color: #494b74;

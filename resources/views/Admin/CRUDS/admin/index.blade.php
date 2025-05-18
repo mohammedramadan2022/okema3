@@ -1,6 +1,6 @@
 @extends('Admin.layouts.inc.app')
 @section('title')
-    المشرفين
+{{__('admin.Admins')}}
 @endsection
 @section('css')
 
@@ -20,19 +20,21 @@
         <!--begin::Header-->
         <div class="card-header border-0 pt-5">
             <h3 class="card-title align-items-start flex-column">
-                <span class="card-label fw-bolder fs-3 mb-1">المشرفين</span>
+                <span class="card-label fw-bolder fs-3 mb-1">{{__('admin.Admins')}}</span>
                 {{-- <span class="text-muted mt-1 fw-bold fs-7">Over 500 new products</span> --}}
             </h3>
             <div class="card-toolbar">
-                <button id="addBtn"  class="btn btn-sm btn-light-primary">
-                <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
-                <span class="svg-icon svg-icon-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
-                        <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
-                    </svg>
-                </span>
-                <!--end::Svg Icon-->اضافة مشرف</button>
+                <div class="card-toolbar">
+                    <a  href="{{ route('admins.create') }}" class="btn btn-sm btn-light-primary">
+                        <span class="svg-icon svg-icon-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1"
+                                    transform="rotate(-90 11.364 20.364)" fill="black" />
+                                <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
+                            </svg>
+                        </span>
+                        {{__('admin.Add Admin')}}</a>
+                </div>
             </div>
         </div>
         <!--end::Header-->
@@ -46,14 +48,15 @@
                     <thead>
                         <tr class="fw-bolder text-muted bg-light">
                             <th>#</th>
-                            <th>الصورة</th>
-                            <th>الاسم</th>
-                            <th> الادوار</th>
-                            <th> البريد الالكتروني</th>
-                            <th>كلمة المرور</th>
-                            <th>التفعيل</th>
-                            <th> تاريخ الانشاء</th>
-                            <th>الاجراء</th>
+
+                            <th>{{__('admin.image')}}</th>
+                            <th>{{__('admin.name')}}</th>
+                            {{-- <th> {{__('admin.Roles')}}</th> --}}
+                            <th> {{__('admin.email')}}</th>
+                            <th>{{__('admin.password')}}</th>
+                            <th>{{__('admin.status')}}</th>
+                            <th>{{__('admin.created_at')}}</th>
+                            <th>{{__('admin.actions')}}</th>
                         </tr>
                     </thead>
                     <!--end::Table head-->
@@ -75,7 +78,7 @@
                 <!--begin::Modal header-->
                 <div class="modal-header">
                     <!--begin::Modal title-->
-                    <h2><span id="operationType"></span> مشرف </h2>
+                    <h2><span id="operationType"></span> {{__('admin.Admin')}} </h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
                     <div class="btn btn-sm btn-icon btn-active-color-primary" style="cursor: pointer"
@@ -103,10 +106,10 @@
                 <div class="modal-footer">
                     <div class="text-center">
                         <button type="reset" data-bs-dismiss="modal" aria-label="Close" class="btn btn-light me-3">
-                            الغاء
+                            {{__('admin.cancel')}}
                         </button>
                         <button form="form" type="submit" id="submit" class="btn btn-primary">
-                            <span class="indicator-label">تاكيد</span>
+                            <span class="indicator-label">{{__('admin.Save')}}</span>
                         </button>
                     </div>
                 </div>
@@ -124,7 +127,6 @@
             {data: 'id', name: 'id'},
             {data: 'image', name: 'image'},
             {data: 'name', name: 'name'},
-            {data: 'roles', name: 'roles'},
             {data: 'email', name: 'email'},
             {data: 'password', name: 'password'},
             {data: 'is_active', name: 'is_active'},
@@ -135,8 +137,8 @@
     @include('Admin.layouts.inc.ajax',['url'=>'admins'])
 
 
-    <link href="{{url('assets/dashboard/css/select2.css')}}" rel="stylesheet"/>
-    <script src="{{url('assets/dashboard/js/select2.js')}}"></script>
+{{--    <link href="{{url('assets/dashboard/css/select2.css')}}" rel="stylesheet"/>--}}
+{{--    <script src="{{url('assets/dashboard/js/select2.js')}}"></script>--}}
 
 
 

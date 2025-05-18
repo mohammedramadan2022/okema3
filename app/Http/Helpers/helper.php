@@ -30,6 +30,7 @@ function setting()
 {
     return \App\Models\Setting::firstorCreate([]);
 }
+
 function languages()
 {
     return \App\Models\Language::where('status',1)->get();

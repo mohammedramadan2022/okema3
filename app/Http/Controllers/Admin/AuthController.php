@@ -34,8 +34,6 @@ class AuthController extends Controller
         ]);
 
         $data['is_active'] = true;
-
-
         if (admin()->attempt($data))
             return response()->json(200);
 

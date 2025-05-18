@@ -164,7 +164,7 @@
             language: {
                 lengthMenu: "_MENU_", // Customize this text
                 search: "", // No label text for search
-                searchPlaceholder: "ادخل الاسم او id", // Placeholder text for search input
+                searchPlaceholder: "{{__('admin.search')}}", // Placeholder text for search input
                 emptyTable: emptyTableMessage,
 
             },
@@ -189,7 +189,7 @@
             '#table');
         var searchContainer = $('<div class="search-container"></div>').insertBefore('#table');
         let BtnSearch = $(
-            '<button type="button" class="btn btn-primary AE_button " id="searchBtn">ابحث</button>')
+            '<button type="button" class="btn btn-primary AE_button " id="searchBtn">{{__('admin.search')}}</button>')
         //
         var table_length = $('#table_length') // length of table
         var table_filter = $('#table_filter') // search table filter
@@ -204,7 +204,7 @@
 
     $(document).on('click', '#addBtn', function () {
         $('#form-load').html(loader)
-        $('#operationType').text('اضافة');
+        $('#operationType').text('{{__('admin.add')}}');
 
         $('#Modal').modal('show')
 
@@ -227,17 +227,18 @@
 
 
                 $('#submit').html('<span class="spinner-border spinner-border-sm mr-2" ' +
-                    ' ></span> <span style="margin-left: 4px;">جاري التنفيذ</span>').attr(
+                    ' ></span> <span style="margin-left: 4px;">{{__("admin.In Process")}}</span>').attr(
                     'disabled', true);
                 $('#form-load').append(loader)
                 $('#form').hide()
             },
             complete: function () {
+
             },
             success: function (data) {
 
                 window.setTimeout(function () {
-                    $('#submit').html('تاكيد').attr('disabled', false);
+                    $('#submit').html("{{__("admin.Confirm")}}").attr('disabled', false);
 
                     // $('#product-model').modal('hide')
                     if (data.code == 200) {
@@ -254,14 +255,17 @@
 
             },
             error: function (data) {
+
                 $('#form-load > .linear-background').hide(loader)
-                $('#submit').html('تاكيد').attr('disabled', false);
+                $('#submit').text("{{__("admin.Save")}}").attr('disabled', false);
                 $('#form').show()
                 if (data.status === 500) {
                     toastr.error('there is an error')
                 }
 
                 if (data.status === 422) {
+                    console.log(data)
+
                     var errors = $.parseJSON(data.responseText);
 
                     $.each(errors, function (key, value) {
@@ -295,14 +299,14 @@
 
         var id = $(this).data('id');
         swal.fire({
-            title: "هل انت متاكد من الحذف؟",
-            text: "لا تستطيع الرجوع فى ذلك",
+            title: "{{__('admin.Are you sure to delete?')}}",
+            text: "{{__('admin.Can`t you undo then?')}}",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "حذف",
-            cancelButtonText: "الغاء",
-            okButtonText: "نعم",
+            confirmButtonText: "{{__('admin.delete')}}",
+            cancelButtonText: "{{__('admin.cancel')}}",
+            okButtonText: "{{__('admin.yes')}}",
             closeOnConfirm: false
         }).then((result) => {
             if (!result.isConfirmed) {
@@ -333,7 +337,6 @@
                     }, 1000);
                 },
                 error: function (data) {
-
                     if (data.code === 500) {
                         toastr.error('there is an error')
                     }
@@ -361,7 +364,7 @@
 
     $(document).on('click', '.editBtn', function () {
         var id = $(this).data('id');
-        $('#operationType').text('تعديل ');
+        $('#operationType').text('{{__('admin.edit')}}');
         $('#form-load').html(loader)
         $('#Modal').modal('show')
 

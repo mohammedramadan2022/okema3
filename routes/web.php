@@ -5,6 +5,7 @@ use App\Notifications\ResetPasswordNotification;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,3 +118,9 @@ Route::get('/mail', function () {
 
     return 'Test email sent successfully!';
 });
+
+Route::get('stores/{store}/products', [\App\Http\Controllers\Admin\StoreController::class, 'viewProducts'])->name('stores.products');
+Route::put('stores/{store}/update-quantities', [\App\Http\Controllers\Admin\StoreController::class, 'updateQuantities'])->name('stores.update-quantities');
+
+// Add route for getting client invoices
+Route::get('payments/get-client-invoices', [\App\Http\Controllers\Admin\PaymentController::class, 'getClientInvoices'])->name('payments.get-client-invoices');

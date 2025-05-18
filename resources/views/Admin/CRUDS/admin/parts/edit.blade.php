@@ -1,5 +1,17 @@
-<!--begin::Form-->
+@extends('Admin.layouts.inc.app')
+@section('title')
+{{__('admin.Admins')}}
+@endsection
+@section('css')
 
+<link href = "//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel         = "stylesheet" type = "text/css" />
+<link href = "https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" rel = "stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@endsection
+
+
+
+@section('content')
 <form id="form" enctype="multipart/form-data" method="POST" action="{{route('admins.update',$admin->id)}}">
     @csrf
     @method('PUT')
@@ -81,7 +93,7 @@
         </div>
 
 
-        <div class="d-flex flex-column mb-7 fv-row col-sm-6">
+     {{--    <div class="d-flex flex-column mb-7 fv-row col-sm-6">
             <!--begin::Label-->
             <label for="roles" class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                 <span class="required mr-1">الدور</span>
@@ -93,16 +105,63 @@
                 @endforeach
             </select>
 
+        </div> --}}
+
+
+
+        <div class = "d-flex justify-content-center mt-3">
+
+            <div  class = "col-md-12 p-1">
+            <span class = "form-check form-switch  " @if( app()->getLocale()=='en') style = "border:0px solid
+                    #F3F3F9;border-radius: 4px;" @else style="border:0px solid #F3F3F9;border-radius: 4px;" @endif>
+                    <input class = "form-check-input  " type   = "checkbox" name = "check_all" value = "" id = "check_all">
+                    <label class = "form-check-label mx-1" for = "check_all">
+                        تحديد الكل
+                    </label>
+                </span>
+            </div>
+
         </div>
+<div class = "row my-4" id = "permission_data">
+    @foreach($permissions as $row)
+        <div  class = "col-md-3 p-1">
+        <span class = "form-check form-switch"
+                @if(app()->getLocale() == 'en')
+                    style = "border:1px solid #F3F3F9;padding: 10px; padding-left: 40px;border-radius: 4px;"
+                @else
+                    style = "border: 1px solid #F3F3F9;padding: 10px; padding-right: 40px;border-radius: 4px;"
+                @endif>
+                <input
+                    class = "form-check-input checkbox"
+                    type  = "checkbox"
+                    name  = "permission[]"
+                    value = "{{$row->id}}"
+                    id    = "flexCheckDefault{{$row->id}}"
+                    @if(in_array($row->id, $admin_permissions_ids)) checked @endif>
+                <label class="form-check-label mx-1" for="flexCheckDefault{{$row->id}}">
+                    {{$row->name}}
+                </label>
+            </span>
+        </div>
+    @endforeach
+</div>
 
 
+
+<button form="form" type="submit" id="submit" class="btn btn-primary">
+    <span class="indicator-label">{{__('admin.Save')}}</span>
+</button>
 
 
     </div>
 </form>
 <script>
-    $('.dropify').dropify();
     $(document).ready(function () {
-        $('.js-example-basic-multiple').select2();
+        $('#check_all').on('change', function () {
+            var checked = $(this).is(':checked');        // Check if the checkbox is checked
+            $   ('.checkbox').prop('checked', checked);  // Set all checkboxes to the same state
+        });
     });
-</script>
+</script>>
+
+@endsection

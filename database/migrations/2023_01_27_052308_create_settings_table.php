@@ -20,6 +20,10 @@ class CreateSettingsTable extends Migration
             $table->string('app_name',500)->nullable();
             $table->text('privacy_policy')->nullable();
             $table->text('terms_of_use')->nullable();
+            $table->string('quote_no_prefix')->default('QUO');
+            $table->string('quote_no_suffix')->nullable();
+            $table->string('invoice_no_prefix')->default('INV');
+            $table->string('invoice_no_suffix')->nullable();
 
 
             $table->timestamps();

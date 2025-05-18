@@ -5,11 +5,11 @@
 		<!--begin::Copyright-->
 		<div class="text-dark order-2 order-md-1">
 			<span class="text-muted fw-bold me-1"><script>document.write(new Date().getFullYear())</script>©</span>
-			<a href="" target="_blank" class="text-gray-800 text-hover-primary">السدودي</a>
+			<a href="" target="_blank" class="text-gray-800 text-hover-primary">Mohammed Ramadan</a>
 		</div>
 		<!--end::Copyright-->
 		<!--begin::Menu-->
-		<ul class="menu menu-gray-600 menu-hover-primary fw-bold order-1">
+		{{-- <ul class="menu menu-gray-600 menu-hover-primary fw-bold order-1">
 			<li class="menu-item">
 				<a href="https://keenthemes.com" target="_blank" class="menu-link px-2">معلومات عنا</a>
 			</li>
@@ -17,7 +17,7 @@
 				<a href="https://keenthemes.com/support" target="_blank" class="menu-link px-2">سياسة الخصوصية</a>
 			</li>
 
-		</ul>
+		</ul> --}}
 		<!--end::Menu-->
 	</div>
 	<!--end::Container-->

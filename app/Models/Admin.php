@@ -21,4 +21,4 @@ class Admin extends Authenticatable
 
 
 
-}//end
+}

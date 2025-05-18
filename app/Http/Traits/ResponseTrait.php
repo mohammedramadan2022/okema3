@@ -4,7 +4,14 @@ namespace App\Http\Traits;
 trait ResponseTrait
 {
 
-    public function addResponse($message = 'تم اضافة البيانات بنجاح')
+    public function addResponse($message = 'Data added successfully')
+    {
+        return [
+            'message' => helperTrans($message),
+            'code'  => 200,
+        ];
+    }
+    public function updateResponse($message = "The data has been updated successfully")
     {
         return [
             'message' => helperTrans($message),
@@ -12,7 +19,7 @@ trait ResponseTrait
         ];
     }
 
-    public function updateResponse($message = "تم تعديل البيانات بنجاح")
+    public function deleteResponse($message = "The data has been deleted successfully")
     {
         return [
             'message' => helperTrans($message),
@@ -20,15 +27,7 @@ trait ResponseTrait
         ];
     }
 
-    public function deleteResponse($message = "تم حذف البيانات بنجاح")
-    {
-        return [
-            'message' => helperTrans($message),
-            'code'  => 200,
-        ];
-    }
-
-    public function successResponse($message="تمت العمليه بنجاح"){
+    public function successResponse($message="operation accomplished successfully"){
         return response()->json([
             'status' => true,
             'message' => helperTrans($message),
