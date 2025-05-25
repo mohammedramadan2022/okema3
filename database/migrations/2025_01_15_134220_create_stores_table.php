@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('stores', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->enum('type',array('main' , 'user'));
+            $table->unsignedBigInteger('admin_id')->nullable(); // Foreign key column
+            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
             $table->boolean('is_active')->default(1);
 
             $table->timestamps();

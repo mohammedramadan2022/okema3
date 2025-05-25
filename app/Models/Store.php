@@ -23,4 +23,9 @@ class Store extends Model
             ->withTimestamps();
     }
 
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'admin_id');
+    }
+
 }

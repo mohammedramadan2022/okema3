@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\Admin\StoreRequest;
 use App\Http\Traits\ResponseTrait;
 use App\Http\Traits\Upload_Files;
+use App\Models\Admin;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,8 +20,10 @@ class StoreController extends Controller
 
     public function index(Request $request)
     {
+
+//        dd(Store::with('admin')->get());
         if ($request->ajax()) {
-            $stores = Store::query()->latest()->select(['id', 'name', 'is_active', 'created_at']);
+            $stores = Store::query()->latest()->with('admin')->select(['id', 'name', 'is_active','admin_id' , 'created_at']);
             return Datatables::of($stores)
                 ->addColumn('action', function ($store) {
                     return '
@@ -64,7 +67,9 @@ class StoreController extends Controller
 
     public function create()
     {
-        return view('Admin.CRUDS.store.parts.create');
+
+        $admins = Admin::get();
+        return view('Admin.CRUDS.store.parts.create' , compact('admins'));
     }
 
     public function store(StoreRequest $request)

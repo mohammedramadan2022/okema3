@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\{AuthController,
     SafeController,
     ExpenseController,
     ReportController,
+    CountryController,
 PurchaseController,InvoiceController,ClientController,MaintenanceQuoteController,MaintenanceInvoiceController ,QuoteController , PaymentController};
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +56,7 @@ Route::group(
 
             Route::resource('admins', \App\Http\Controllers\Admin\AdminController::class);
             Route::resource('categories', CategoryController::class);
+            Route::resource('countries', CountryController::class);
             Route::resource('safes', SafeController::class);
             Route::resource('expenses', ExpenseController::class);
 
@@ -68,6 +70,7 @@ Route::group(
             Route::get('activateExpense', [ExpenseController::class, 'activate'])->name('admin.active.expense');
 
             Route::get('activateCategory', [CategoryController::class, 'activate'])->name('admin.active.category');
+            Route::get('activateCountry', [CountryController::class, 'activate'])->name('admin.active.country');
             Route::resource('stores', StoreController::class);
             Route::get('activateStore', [StoreController::class, 'activate'])->name('admin.active.store');
             Route::resource('suppliers', SupplierController::class);

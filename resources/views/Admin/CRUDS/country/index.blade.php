@@ -1,6 +1,6 @@
 @extends('Admin.layouts.inc.app')
 @section('title')
-{{__('admin.Stores')}}
+{{__('admin.Countries')}}
 @endsection
 @section('css')
 
@@ -19,7 +19,7 @@
         <!--begin::Header-->
         <div class="card-header border-0 pt-5">
             <h3 class="card-title align-items-start flex-column">
-                <span class="card-label fw-bolder fs-3 mb-1">{{__('admin.Stores')}}</span>
+                <span class="card-label fw-bolder fs-3 mb-1">{{__('admin.Countries')}}</span>
             </h3>
             <div class="card-toolbar">
                 <button id="addBtn" class="btn btn-sm btn-light-primary">
@@ -29,7 +29,7 @@
                         <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
                     </svg>
                 </span>
-                    {{__('admin.Add Store')}}</button>
+                    {{__('admin.Add Country')}}</button>
             </div>
         </div>
         <div class="card-body py-3">
@@ -39,8 +39,8 @@
                     <tr class="fw-bolder text-muted bg-light">
                         <th>#</th>
                         <th>{{__('admin.name')}}</th>
-                        <th>{{__('admin.Admin')}}</th>
                         <th>{{__('admin.status')}}</th>
+                        <th>{{__('admin.country code')}}</th>
                         <th>{{__('admin.created at')}}</th>
                         <th>{{__('admin.actions')}}</th>
                     </tr>
@@ -58,7 +58,7 @@
                 <!--begin::Modal header-->
                 <div class="modal-header">
                     <!--begin::Modal title-->
-                    <h2><span id="operationType"></span> {{__('admin.Store')}} </h2>
+                    <h2><span id="operationType"></span> {{__('admin.Country')}} </h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
                     <div class="btn btn-sm btn-icon btn-active-color-primary" style="cursor: pointer"
@@ -105,10 +105,8 @@
         var columns = [
             {data: 'id', name: 'id'},
             {data: 'name', name: 'name'},
-            {data: 'admin', name: 'admin.name', render: function(data) {
-                return data ? data.name : '';
-            }},
             {data: 'is_active', name: 'is_active'},
+            {data: 'country_code', name: 'country_code'},
             {data: 'created_at', name: 'created_at'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ];
@@ -121,7 +119,7 @@
 
             $.ajax({
                 type: 'GET',
-                url: "{{route('admin.active.store')}}",
+                url: "{{route('admin.active.country')}}",
                 data: {
                     id: id,
                 },
@@ -146,7 +144,7 @@
 
 
     </script>
-    @include('Admin.layouts.inc.ajax',['url'=>'stores'])
+    @include('Admin.layouts.inc.ajax',['url'=>'countries'])
 
     <link href="{{url('assets/dashboard/css/select2.css')}}" rel="stylesheet"/>
     <script src="{{url('assets/dashboard/js/select2.js')}}"></script>

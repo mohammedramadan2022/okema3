@@ -14,17 +14,12 @@ class StoreRequest extends FormRequest
     public function rules()
     {
 
-        if ($this->id){
-            return [
-                'name' => 'required|string|max:255|unique:stores,name,'.$this->id,
-                'is_active' => 'required'
-            ];
-        }
-        else{
-            return [
-                'name' => 'required|string|max:255|unique:stores,name',
-                'is_active' => 'required'];
-        }
+        return [
+            'name' => 'required|string|max:255|unique:stores,name' . ($this->id ? ',' . $this->id : ''),
+            'is_active' => 'required',
+            'type' => 'required|in:user,main',
+            'admin_id' => 'required_if:type,user|exists:admins,id',
+        ];
 
     }
 }

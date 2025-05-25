@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('invoice_items', function (Blueprint $table) {
-            $table->string('code')->nullable()->after('product_name');
-
+        Schema::create('countries', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('country_code');
+            $table->string('is_active')->default(1);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -22,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('invoice_items', function (Blueprint $table) {
-            $table->dropColumn('code');
-        });
+        Schema::dropIfExists('countries');
     }
 };
