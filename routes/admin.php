@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\{AuthController,
     HomeController,
     CategoryController,
+    CenterController,
+    ItemController,
     ProductController,
     StoreController,
     SupplierController,
@@ -56,7 +58,12 @@ Route::group(
 
             Route::resource('admins', \App\Http\Controllers\Admin\AdminController::class);
             Route::resource('categories', CategoryController::class);
+<<<<<<< Updated upstream
             Route::resource('countries', CountryController::class);
+=======
+            Route::resource('centers', CenterController::class);
+            Route::resource('items', ItemController::class);
+>>>>>>> Stashed changes
             Route::resource('safes', SafeController::class);
             Route::resource('expenses', ExpenseController::class);
 
@@ -70,7 +77,12 @@ Route::group(
             Route::get('activateExpense', [ExpenseController::class, 'activate'])->name('admin.active.expense');
 
             Route::get('activateCategory', [CategoryController::class, 'activate'])->name('admin.active.category');
+<<<<<<< Updated upstream
             Route::get('activateCountry', [CountryController::class, 'activate'])->name('admin.active.country');
+=======
+            Route::get('activateCenter', [CenterController::class, 'activate'])->name('admin.active.center');
+            Route::get('activateItem', [ItemController::class, 'activate'])->name('admin.active.item');
+>>>>>>> Stashed changes
             Route::resource('stores', StoreController::class);
             Route::get('activateStore', [StoreController::class, 'activate'])->name('admin.active.store');
             Route::resource('suppliers', SupplierController::class);
